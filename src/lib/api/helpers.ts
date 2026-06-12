@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth/config";
+import type { Session } from "next-auth";
 import { NextRequest } from "next/server";
 
-export type Session = NonNullable<Awaited<ReturnType<typeof auth>>>;
+export type { Session };
 
 export async function requireAuth() {
   const session = await auth();
