@@ -22,17 +22,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     verifyRequest: "/login?verify=1",
   },
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    MicrosoftEntraID({
-      clientId: process.env.MICROSOFT_CLIENT_ID!,
-      clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
-      issuer: process.env.MICROSOFT_TENANT_ID
-        ? `https://login.microsoftonline.com/${process.env.MICROSOFT_TENANT_ID}/v2.0`
-        : "https://login.microsoftonline.com/common/v2.0",
-    }),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [Google({
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        })]
+      : []),
+    ...(process.env.MICROSOFT_CLIENT_ID && process.env.MICROSOFT_CLIENT_SECRET
+      ? [MicrosoftEntraID({
+          clientId: process.env.MICROSOFT_CLIENT_ID,
+          clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
+          issuer: process.env.MICROSOFT_TENANT_ID
+            ? `https://login.microsoftonline.com/${process.env.MICROSOFT_TENANT_ID}/v2.0`
+            : "https://login.microsoftonline.com/common/v2.0",
+        })]
+      : []),
     Credentials({
       credentials: {
         email: { label: "Email", type: "email" },
