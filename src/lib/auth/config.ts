@@ -6,7 +6,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/db/prisma";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import type { UserRole } from "@/generated/prisma";
+import type { UserRole } from "../../generated/prisma";
 
 const signInSchema = z.object({
   email: z.string().email(),

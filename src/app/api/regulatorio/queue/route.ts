@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
-import type { RegulatoryStatus } from "@/generated/prisma";
+import type { RegulatoryStatus } from "../../../../generated/prisma";
 
 // GET /api/regulatorio/queue?status=&country=&category=&page=
 export async function GET(req: Request) {
